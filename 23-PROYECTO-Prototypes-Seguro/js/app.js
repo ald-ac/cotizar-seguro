@@ -85,6 +85,20 @@ UI.prototype.mostrarMensaje = (mensaje, tipo) => {
     }, 3000);
 }
 
+UI.prototype.mostrarResultado = (seguro, total) => {
+    //Crear resultado para el DOM
+    const div =  document.createElement('div');
+    div.classList.add('mt-10');
+    
+    div.innerHTML = `
+        <p class="header">Tu resumen</p>
+        <p class="font-bold">Total: ${total} </p>
+    `;
+
+    const resultadoDiv = document.querySelector('#resultado');
+    resultadoDiv.appendChild(div);
+}
+
 //Instanciar UI
 const ui = new UI();
 
@@ -117,9 +131,9 @@ function cotizarSeguro(e) {
         return;
     } 
 
-    const seguro = new Seguro(marca, year, tipo);
-    
-    console.log(seguro.cotizarSeguro());
     //Instanciar el seguro con los datos obtenidos
-    
+    const seguro = new Seguro(marca, year, tipo);
+    const total = seguro.cotizarSeguro();
+
+    ui.mostrarResultado(seguro, total);
 }
